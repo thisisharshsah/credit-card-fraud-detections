@@ -53,7 +53,7 @@ This project aims to detect fraudulent credit card transactions using a machine 
 
 ## Author
 
-This project is developed by Dinesh Lal.
+This project is developed by Harsh Kumar Sah.
 
 ## License
 
