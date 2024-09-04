@@ -7,13 +7,16 @@ import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 # Load the data
 @st.cache_data
 def load_data():
     data = pd.read_csv('creditcard.csv')
     return data
 
+
 data = load_data()
+
 
 # Data preprocessing
 def preprocess_data(data):
@@ -27,7 +30,9 @@ def preprocess_data(data):
         scaled_features, labels, test_size=0.3, random_state=42)
     return X_train, X_test, y_train, y_test
 
+
 X_train, X_test, y_train, y_test = preprocess_data(data)
+
 
 # Train the model
 def train_model(X_train, y_train):
@@ -36,16 +41,16 @@ def train_model(X_train, y_train):
     joblib.dump(model, 'fraud_detection_model.pkl')
     return model
 
-# Train the model if not already done
-try:
-    model = joblib.load('fraud_detection_model.pkl')
-except FileNotFoundError:
-    model = train_model(X_train, y_train)
+
+# Re-train and save the model
+model = train_model(X_train, y_train)
+
 
 def predict(features):
     model = joblib.load('fraud_detection_model.pkl')
     prediction = model.predict([features])
     return prediction[0]
+
 
 # Streamlit app
 st.title('Credit Card Fraud Detection')
@@ -139,5 +144,3 @@ if st.session_state['show_class_dist']:
     ax.set_xlabel('Class')
     ax.set_ylabel('Count')
     st.pyplot(fig)
-
-
